@@ -72,7 +72,7 @@ public class EnemyController : MonoBehaviour
 
         yield return new WaitForSeconds(data.TimeStun);
 
-        soul.transform.position = transform.position + (Vector3.up * 0.5f);
+        soul.transform.position = transform.position + (Vector3.up * 0.2f);
         soul.SetActive(true);
         gameObject.SetActive(false);
     }
