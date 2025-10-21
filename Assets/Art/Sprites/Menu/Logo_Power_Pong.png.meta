@@ -1,0 +1,540 @@
+fileFormatVersion: 2
+guid: 4cca2a50772e0ef4a885a264cd24d32b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7029132089039723323
+    second: Logo_Power_Pong_0
+  - first:
+      213: -6691450839702844728
+    second: Logo_Power_Pong_1
+  - first:
+      213: -2200564974860850680
+    second: Logo_Power_Pong_2
+  - first:
+      213: -537318066392539789
+    second: Logo_Power_Pong_3
+  - first:
+      213: -8538975968811322708
+    second: Logo_Power_Pong_4
+  - first:
+      213: 3076566209007748168
+    second: Logo_Power_Pong_5
+  - first:
+      213: 3427135641713989920
+    second: Logo_Power_Pong_6
+  - first:
+      213: -821976853759053386
+    second: Logo_Power_Pong_7
+  - first:
+      213: 4474752516994682845
+    second: Logo_Power_Pong_8
+  - first:
+      213: 368583871737032714
+    second: Logo_Power_Pong_9
+  - first:
+      213: 8582788718932718077
+    second: Logo_Power_Pong_10
+  - first:
+      213: 3966171457865954524
+    second: Logo_Power_Pong_11
+  - first:
+      213: -1218537113200958945
+    second: Logo_Power_Pong_12
+  - first:
+      213: -6475329938407385957
+    second: Logo_Power_Pong_13
+  - first:
+      213: -2341943043247397392
+    second: Logo_Power_Pong_14
+  - first:
+      213: -5528140445305390388
+    second: Logo_Power_Pong_15
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Logo_Power_Pong_0
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 633
+        width: 880
+        height: 250
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3b138e946e7c8160800000000000000
+      internalID: 7029132089039723323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_Power_Pong_1
+      rect:
+        serializedVersion: 2
+        x: 464
+        y: 868
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8cac5830ae03323a0800000000000000
+      internalID: -6691450839702844728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_Power_Pong_2
+      rect:
+        serializedVersion: 2
+        x: 639
+        y: 810
+        width: 85
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80aa04080d50671e0800000000000000
+      internalID: -2200564974860850680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_Power_Pong_3
+      rect:
+        serializedVersion: 2
+        x: 415
+        y: 786
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37dd541c0101b88f0800000000000000
+      internalID: -537318066392539789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_Power_Pong_4
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 426
+        width: 123
+        height: 191
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca2776909967f7980800000000000000
+      internalID: -8538975968811322708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_Power_Pong_5
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 535
+        width: 130
+        height: 169
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84480efaaa822ba20800000000000000
+      internalID: 3076566209007748168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_Power_Pong_6
+      rect:
+        serializedVersion: 2
+        x: 287
+        y: 535
+        width: 133
+        height: 169
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 029517955b1af8f20800000000000000
+      internalID: 3427135641713989920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_Power_Pong_7
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 535
+        width: 178
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b139121860c794f0800000000000000
+      internalID: -821976853759053386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_Power_Pong_8
+      rect:
+        serializedVersion: 2
+        x: 607
+        y: 535
+        width: 122
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ddfc049b4b3891e30800000000000000
+      internalID: 4474752516994682845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_Power_Pong_9
+      rect:
+        serializedVersion: 2
+        x: 734
+        y: 535
+        width: 152
+        height: 169
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a00f2d814197d1500800000000000000
+      internalID: 368583871737032714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_Power_Pong_10
+      rect:
+        serializedVersion: 2
+        x: 888
+        y: 439
+        width: 136
+        height: 178
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df1f636cdd03c1770800000000000000
+      internalID: 8582788718932718077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_Power_Pong_11
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 57
+        width: 781
+        height: 456
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd4b4606debaa0730800000000000000
+      internalID: 3966171457865954524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_Power_Pong_12
+      rect:
+        serializedVersion: 2
+        x: 331
+        y: 312
+        width: 166
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f12e60e93f2e61fe0800000000000000
+      internalID: -1218537113200958945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_Power_Pong_13
+      rect:
+        serializedVersion: 2
+        x: 493
+        y: 475
+        width: 41
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9496c19ab10326a0800000000000000
+      internalID: -6475329938407385957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_Power_Pong_14
+      rect:
+        serializedVersion: 2
+        x: 527
+        y: 312
+        width: 130
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f5aa07d53fbf7fd0800000000000000
+      internalID: -2341943043247397392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_Power_Pong_15
+      rect:
+        serializedVersion: 2
+        x: 643
+        y: 309
+        width: 290
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cca3a19ed891843b0800000000000000
+      internalID: -5528140445305390388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Logo_Power_Pong_0: 7029132089039723323
+      Logo_Power_Pong_1: -6691450839702844728
+      Logo_Power_Pong_10: 8582788718932718077
+      Logo_Power_Pong_11: 3966171457865954524
+      Logo_Power_Pong_12: -1218537113200958945
+      Logo_Power_Pong_13: -6475329938407385957
+      Logo_Power_Pong_14: -2341943043247397392
+      Logo_Power_Pong_15: -5528140445305390388
+      Logo_Power_Pong_2: -2200564974860850680
+      Logo_Power_Pong_3: -537318066392539789
+      Logo_Power_Pong_4: -8538975968811322708
+      Logo_Power_Pong_5: 3076566209007748168
+      Logo_Power_Pong_6: 3427135641713989920
+      Logo_Power_Pong_7: -821976853759053386
+      Logo_Power_Pong_8: 4474752516994682845
+      Logo_Power_Pong_9: 368583871737032714
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
