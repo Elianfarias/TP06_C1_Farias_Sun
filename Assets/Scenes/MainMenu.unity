@@ -793,7 +793,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7442321177565666642, guid: 03afab48d3571df4d85198d598868eb4, type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
-      value: 508.30292
+      value: 606.9137
       objectReference: {fileID: 0}
     - target: {fileID: 7965158806931198572, guid: 03afab48d3571df4d85198d598868eb4, type: 3}
       propertyPath: m_Layer
@@ -801,7 +801,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8954973185838544109, guid: 03afab48d3571df4d85198d598868eb4, type: 3}
       propertyPath: intensity
-      value: 3
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 8954973185838544109, guid: 03afab48d3571df4d85198d598868eb4, type: 3}
       propertyPath: windDirection.x
@@ -857,7 +857,7 @@ ParticleSystemForceField:
   m_GameObject: {fileID: 801268675}
   m_Enabled: 1
   m_Parameters:
-    m_Shape: 0
+    m_Shape: 1
     m_StartRange: 0
     m_EndRange: 2
     m_Length: 1
@@ -1025,7 +1025,7 @@ ParticleSystemForceField:
     m_GravityCurve:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 3
+      scalar: 1
       minScalar: 1
       maxCurve:
         serializedVersion: 2
