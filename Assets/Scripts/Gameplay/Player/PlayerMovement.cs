@@ -33,15 +33,21 @@ namespace Assets.Scripts.Gameplay.Player
             rb = GetComponent<Rigidbody2D>();
         }
 
+        private void Update()
+        {
+            if (Input.GetKey(data.keyCodeJump) || Input.GetKey(KeyCode.Space))
+                Jump();
+
+            if (Input.GetKey(data.keyCodeDash))
+                TryDash();
+        }
+
         private void FixedUpdate()
         {
             RotateTowardsMouseScreen();
 
             if (!Input.GetKey(data.keyCodeLeft) && !Input.GetKey(data.keyCodeRight) && !isJumping)
                 StopMovement();
-
-            if (Input.GetKey(data.keyCodeJump) || Input.GetKey(KeyCode.Space))
-                Jump();
 
             if (Input.GetKey(data.keyCodeDown))
                 MoveY(new Vector2(rb.velocityX, -1));
@@ -52,8 +58,6 @@ namespace Assets.Scripts.Gameplay.Player
             if (Input.GetKey(data.keyCodeRight))
                 MoveX(new Vector2(1, rb.velocityY));
 
-            if (Input.GetKey(data.keyCodeDash))
-                TryDash();
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -70,7 +74,7 @@ namespace Assets.Scripts.Gameplay.Player
             AudioController.Instance.PlaySoundEffect(clipJump, priority: 1);
             isJumping = true;
             animator.SetInteger(State, (int)PlayerAnimatorEnum.Jump);
-            rb.AddForce(data.jumpForce * Time.fixedDeltaTime * Vector2.up, ForceMode2D.Impulse);
+            rb.AddForce(data.jumpForce * Vector2.up, ForceMode2D.Impulse);
         }
 
         private void StopMovement()
@@ -85,14 +89,14 @@ namespace Assets.Scripts.Gameplay.Player
                 animator.SetInteger(State, (int)PlayerAnimatorEnum.Run);
 
             AudioController.Instance.PlaySoundEffect(clipWalk);
-            Vector2 movementSpeed = new(data.speed * Time.fixedDeltaTime * axis.x, rb.velocityY);
+            Vector2 movementSpeed = new(data.speed * axis.x, rb.velocityY);
 
             rb.velocity = movementSpeed;
         }
 
         private void MoveY(Vector2 axis)
         {
-            Vector2 movementSpeed = new(rb.velocityX, data.speed * Time.fixedDeltaTime * axis.y);
+            Vector2 movementSpeed = new(rb.velocityX, data.speed * axis.y);
 
             rb.velocity = movementSpeed;
         }
@@ -116,13 +120,17 @@ namespace Assets.Scripts.Gameplay.Player
 
             onDashCD.Invoke(data.dashDuration);
             dashParticles.Play();
+
+            // Ignore enemies
             GameStateManager.Instance.inmortalMode = true;
+            gameObject.layer = LayerMask.NameToLayer("PlayerDash");
 
             rb.AddForceX(velocity.x * data.dashSpeed, ForceMode2D.Impulse);
 
             yield return new WaitForSeconds(data.inmortalDuration);
 
             GameStateManager.Instance.inmortalMode = false;
+            gameObject.layer = LayerMask.NameToLayer("Player");
 
             yield return new WaitForSeconds(data.dashDuration - data.inmortalDuration);
 

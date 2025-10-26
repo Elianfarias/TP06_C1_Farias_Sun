@@ -18,11 +18,11 @@ MonoBehaviour:
   keyCodeRight: 100
   keyCodeDash: 304
   bulletPrefab: {fileID: 3954131475818202122, guid: 2de0b17eb19de4e47b90b7875d482c8a, type: 3}
-  speed: 90
-  jumpForce: 200
+  speed: 2
+  jumpForce: 4
   playerName: Player
-  volumeMusic: 0
-  volumeSFX: 0
+  volumeMusic: -28.812775
+  volumeSFX: -41.38864
   chargerSize: 4
   dashSpeed: 9
   inmortalDuration: 0.8

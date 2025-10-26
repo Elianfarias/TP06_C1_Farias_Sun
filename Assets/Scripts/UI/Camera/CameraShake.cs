@@ -36,9 +36,9 @@ public class CameraShake : MonoBehaviour
 
         if (useDistanceFalloff && listenerAnchor != null)
         {
-            float d = Vector3.Distance(listenerAnchor.position, hitPos);
-            float t = Mathf.Clamp01(1f - (d / maxDistance));
-            finalIntensity *= t;
+            float distance = Vector3.Distance(listenerAnchor.position, hitPos);
+            float intensityCalculate = Mathf.Clamp01(1f - (distance / maxDistance));
+            finalIntensity *= intensityCalculate;
             if (finalIntensity <= 0.01f) return;
         }
 
