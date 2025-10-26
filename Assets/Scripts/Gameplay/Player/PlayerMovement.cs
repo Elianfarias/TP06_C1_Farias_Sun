@@ -6,8 +6,11 @@ namespace Assets.Scripts.Gameplay.Player
 {
     public class PlayerMovement : MonoBehaviour
     {
-        public event Action<float> onDashCD;
         private static readonly int State = Animator.StringToHash("State");
+
+        public event Action<float> onDashCD;
+        public event Action<float, float> onChargerJump;
+        public event Action onJump;
 
         [Header("Player Settings")]
         [SerializeField] private PlayerDataSO data;
@@ -16,8 +19,6 @@ namespace Assets.Scripts.Gameplay.Player
         [Header("Sound clips")]
         [SerializeField] private AudioClip clipJump;
         [SerializeField] private AudioClip clipWalk;
-        [Header("Particles")]
-        [SerializeField] private ParticleSystem dashParticles;
 
         private HealthSystem healthSystem;
         private Animator animator;
@@ -25,6 +26,9 @@ namespace Assets.Scripts.Gameplay.Player
         private bool _isDashing = false;
         private float _lastDashTime = -Mathf.Infinity;
         private bool isJumping = false;
+        private bool isCharging = false;
+        private float chargeStartTime = 0f;
+        private float currentCharge = 0f;
 
         private void Awake()
         {
@@ -35,22 +39,16 @@ namespace Assets.Scripts.Gameplay.Player
 
         private void Update()
         {
-            if (Input.GetKey(data.keyCodeJump) || Input.GetKey(KeyCode.Space))
-                Jump();
-
-            if (Input.GetKey(data.keyCodeDash))
-                TryDash();
+            if (!isJumping)
+                HandleJumpAndChargeInput();
         }
 
         private void FixedUpdate()
         {
             RotateTowardsMouseScreen();
 
-            if (!Input.GetKey(data.keyCodeLeft) && !Input.GetKey(data.keyCodeRight) && !isJumping)
+            if (!Input.GetKey(data.keyCodeLeft) && !Input.GetKey(data.keyCodeRight) && !isJumping && !isCharging)
                 StopMovement();
-
-            if (Input.GetKey(data.keyCodeDown))
-                MoveY(new Vector2(rb.velocityX, -1));
 
             if (Input.GetKey(data.keyCodeLeft))
                 MoveX(new Vector2(-1, rb.velocityY));
@@ -58,12 +56,97 @@ namespace Assets.Scripts.Gameplay.Player
             if (Input.GetKey(data.keyCodeRight))
                 MoveX(new Vector2(1, rb.velocityY));
 
+            if (Input.GetKey(data.keyCodeDash) && !isJumping)
+                TryDash();
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
                 isJumping = false;
+        }
+
+        private void HandleJumpAndChargeInput()
+        {
+            if (Input.GetKeyDown(data.keyCodeJump) || Input.GetKeyDown(KeyCode.Space))
+            {
+                chargeStartTime = Time.time;
+                isCharging = false;
+            }
+
+            if (Input.GetKey(data.keyCodeJump) || Input.GetKey(KeyCode.Space))
+            {
+                if (!isCharging && Time.time >= chargeStartTime + data.tapThreshold)
+                    StartCharging();
+
+                if (isCharging)
+                    ContinueCharging();
+            }
+
+            if (Input.GetKeyUp(data.keyCodeJump) || Input.GetKeyUp(KeyCode.Space))
+            {
+                float held = Time.time - chargeStartTime;
+                if (!isCharging && held < data.tapThreshold)
+                    Jump();
+                else if (isCharging)
+                    ReleaseCharge();
+
+                isCharging = false;
+                currentCharge = 0f;
+            }
+        }
+
+        private void StartCharging()
+        {
+            isCharging = true;
+            currentCharge = 0f;
+            onChargerJump?.Invoke(currentCharge, data.timeToFullCharge);
+        }
+
+        private void ContinueCharging()
+        {
+            if (!isCharging) return;
+            if (data.timeToFullCharge <= 0f) currentCharge = 1f;
+            else currentCharge += (1f / data.timeToFullCharge) * Time.deltaTime;
+            currentCharge = Mathf.Clamp01(currentCharge);
+            onChargerJump?.Invoke(currentCharge, data.timeToFullCharge);
+        }
+
+        private void ReleaseCharge()
+        {
+            if (currentCharge < data.minChargeToRelease)
+                return;
+
+            float impulse = Mathf.Lerp(0f, data.maxImpulseForce, currentCharge);
+            impulse = impulse < data.jumpForce ? data.jumpForce : impulse;
+
+            Vector2 dir = GetChargeDirection();
+            isJumping = true;
+            rb.AddForce(dir * impulse, ForceMode2D.Impulse);
+            onJump?.Invoke();
+        }
+
+        private Vector2 GetChargeDirection()
+        {
+            Camera cam = Camera.main;
+            if (cam == null)
+            {
+                float sign = transform.localScale.x >= 0 ? 1f : -1f;
+                return new Vector2(sign, 0f).normalized;
+            }
+
+            Vector3 mouseScreen = Input.mousePosition;
+            Vector3 mouseWorld = cam.ScreenToWorldPoint(mouseScreen);
+            mouseWorld.z = transform.position.z;
+
+            Vector3 diff = mouseWorld - transform.position;
+            if (diff.sqrMagnitude < 0.0001f)
+            {
+                float sign = transform.localScale.x >= 0 ? 1f : -1f;
+                return new Vector2(sign, 0f).normalized;
+            }
+
+            return (Vector2)diff.normalized;
         }
 
         private void Jump()
@@ -75,6 +158,7 @@ namespace Assets.Scripts.Gameplay.Player
             isJumping = true;
             animator.SetInteger(State, (int)PlayerAnimatorEnum.Jump);
             rb.AddForce(data.jumpForce * Vector2.up, ForceMode2D.Impulse);
+            onJump?.Invoke();
         }
 
         private void StopMovement()
@@ -119,7 +203,6 @@ namespace Assets.Scripts.Gameplay.Player
             _lastDashTime = Time.time;
 
             onDashCD.Invoke(data.dashDuration);
-            dashParticles.Play();
 
             // Ignore enemies
             GameStateManager.Instance.inmortalMode = true;

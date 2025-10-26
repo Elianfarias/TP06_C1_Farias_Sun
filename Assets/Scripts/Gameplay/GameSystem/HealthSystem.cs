@@ -5,7 +5,7 @@ using UnityEngine;
 public class HealthSystem : MonoBehaviour
 {
     private static readonly int State = Animator.StringToHash("State");
-    public event Action<int, int> onLifeUpdated;
+    public event Action<int, int, bool> onLifeUpdated;
     public event Action onDie;
 
     [SerializeField] private int maxLife = 100;
@@ -19,10 +19,10 @@ public class HealthSystem : MonoBehaviour
     private void Start()
     {
         life = maxLife;
-        onLifeUpdated?.Invoke(life, maxLife);
+        onLifeUpdated?.Invoke(life, maxLife, false);
     }
 
-    public void DoDamage(int damage)
+    public void DoDamage(int damage, bool takeDmgMyself = false)
     {
         if (gameObject.layer == LayerMask.NameToLayer("Player") && GameStateManager.Instance.inmortalMode)
             return;
@@ -36,8 +36,10 @@ public class HealthSystem : MonoBehaviour
             StartCoroutine(nameof(Die));
         else
         {
-            StartCoroutine(nameof(TakeDamage));
-            onLifeUpdated?.Invoke(life, maxLife);
+            if (!takeDmgMyself)
+                StartCoroutine(nameof(TakeDamage));
+
+            onLifeUpdated?.Invoke(life, maxLife, takeDmgMyself);
         }
 
     }
@@ -52,7 +54,7 @@ public class HealthSystem : MonoBehaviour
         if (life > maxLife)
             life = maxLife;
 
-        onLifeUpdated?.Invoke(life, maxLife);
+        onLifeUpdated?.Invoke(life, maxLife, false);
     }
 
     private IEnumerator TakeDamage()

@@ -8,8 +8,10 @@ public class SoulController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Player") && 
+            collision.gameObject.TryGetComponent(out HealthSystem healthSystem))
         {
+            healthSystem.Heal(20);
             AudioController.Instance.PlaySoundEffect(clipTakeSoul, priority: 3);
             ScoreManager.Instance.AddSoul();
             gameObject.SetActive(false);

@@ -18,7 +18,7 @@ public class UILife : MonoBehaviour
         target.onDie -= HealthSystem_onDie;
     }
 
-    public void HealthSystem_onLifeUpdated(int current, int max)
+    public void HealthSystem_onLifeUpdated(int current, int max, bool takeDmgMyseft)
     {
         float lerp = current / (float)max;
         barLife.fillAmount = lerp;

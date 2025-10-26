@@ -20,9 +20,9 @@ public class PlayerController : MonoBehaviour
         healthSystem.onLifeUpdated -= HealthSystem_onLifeUpdated;
     }
 
-    private void HealthSystem_onLifeUpdated(int life, int maxLife)
+    private void HealthSystem_onLifeUpdated(int life, int maxLife, bool takeDmgMyselft)
     {
-        if(life < maxLife)
+        if(life < maxLife && !takeDmgMyselft)
         {
             CombatEvents.RaiseCameraShake(2f, 0.12f, transform.position);
             AudioController.Instance.PlaySoundEffect(clipHurt, priority: 2);

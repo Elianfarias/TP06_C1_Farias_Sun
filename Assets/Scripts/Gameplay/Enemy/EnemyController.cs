@@ -59,7 +59,7 @@ public class EnemyController : MonoBehaviour
         StartCoroutine(nameof(Die));
     }
 
-    private void HealthSystem_onLifeUpdated(int life, int maxLife)
+    private void HealthSystem_onLifeUpdated(int life, int maxLife, bool takeDmgMyseft)
     {
         StartCoroutine(TakeDamage(life, maxLife));
     }

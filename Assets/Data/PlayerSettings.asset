@@ -25,6 +25,11 @@ MonoBehaviour:
   volumeSFX: -41.38864
   chargerSize: 4
   dashSpeed: 9
-  inmortalDuration: 0.8
-  dashDuration: 2
+  inmortalDuration: 0.2
+  dashDuration: 0.2
   extraReloadDelay: 2
+  timeToFullCharge: 1
+  tapThreshold: 0.3
+  minChargeToRelease: 0.1
+  maxImpulseForce: 8
+  canChargeWhileDashing: 1

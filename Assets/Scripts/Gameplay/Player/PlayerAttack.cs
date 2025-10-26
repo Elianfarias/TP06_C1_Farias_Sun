@@ -10,6 +10,7 @@ public class PlayerAttack : MonoBehaviour
     [Header("PlayerData")]
     public PlayerDataSO data;
     [SerializeField] private Transform firePoint;
+    [SerializeField] private HealthSystem healthSystem;
     [Header("Bullets Pooling")]
     [SerializeField] private Bullet[] bulletsPool;
     [Header("Sound clips")]
@@ -18,11 +19,16 @@ public class PlayerAttack : MonoBehaviour
     private bool canFire = true;
     private int shotsSinceExtraDelay = 0;
     private int nextIndex = 0;
+    private bool isSlowMotionActive = false;
+    private Coroutine slowMotionCoroutine;
 
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
             TryFire();
+
+        if (Input.GetKeyDown(data.slowMotionKey))
+            ToggleSlowMotion();
     }
 
     private void TryFire()
@@ -77,5 +83,39 @@ public class PlayerAttack : MonoBehaviour
         }
 
         return null;
+    }
+
+
+    private void ToggleSlowMotion()
+    {
+        if (isSlowMotionActive)
+        {
+            // Desactivar slow motion
+            StopCoroutine(slowMotionCoroutine);
+            Time.timeScale = 1f;
+            Time.fixedDeltaTime = 0.02f;
+            isSlowMotionActive = false;
+        }
+        else
+            // Activar slow motion
+            slowMotionCoroutine = StartCoroutine(SlowMotionRoutine());
+    }
+
+    private IEnumerator SlowMotionRoutine()
+    {
+        isSlowMotionActive = true;
+
+        float originalTimeScale = Time.timeScale;
+        Time.timeScale = data.slowMotionScale;
+        Time.fixedDeltaTime = 0.02f * Time.timeScale;
+
+        while (isSlowMotionActive)
+        {
+            healthSystem.DoDamage(data.takeDamageSlowMotion, takeDmgMyself: true);
+            yield return new WaitForSecondsRealtime(1f);
+        }
+
+        Time.timeScale = originalTimeScale;
+        Time.fixedDeltaTime = 0.02f;
     }
 }
