@@ -11,10 +11,11 @@ namespace Assets.Scripts.Gameplay.Player
         public event Action<float> onDashCD;
         public event Action<float> onDash;
         public event Action<float, float> onChargerJump;
-        public event Action onJump;
+        public event Action<bool> onJump;
 
         [Header("Player Settings")]
         [SerializeField] private PlayerDataSO data;
+        [SerializeField] private ParticleSystem waterSplash;
         [Header("Dash Settings")]
         [SerializeField] private float dashCooldown = 1f;
         [Header("Sound clips")]
@@ -67,7 +68,10 @@ namespace Assets.Scripts.Gameplay.Player
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+            {
+                onJump?.Invoke(false);
                 isJumping = false;
+            }
         }
 
         private void HandleJumpAndChargeInput()
@@ -127,7 +131,7 @@ namespace Assets.Scripts.Gameplay.Player
             Vector2 dir = GetChargeDirection();
             isJumping = true;
             rb.AddForce(dir * impulse, ForceMode2D.Impulse);
-            onJump?.Invoke();
+            onJump?.Invoke(true);
         }
 
         private Vector2 GetChargeDirection()
@@ -162,7 +166,7 @@ namespace Assets.Scripts.Gameplay.Player
             isJumping = true;
             animator.SetInteger(State, (int)PlayerAnimatorEnum.Jump);
             rb.AddForce(data.jumpForce * Vector2.up, ForceMode2D.Impulse);
-            onJump?.Invoke();
+            onJump?.Invoke(true);
         }
 
         private void StopMovement()

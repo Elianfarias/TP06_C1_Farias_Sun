@@ -27,7 +27,7 @@ public class UIChargerJump : MonoBehaviour
         barCharger.fillAmount = lerp;
     }
 
-    public void onJump()
+    public void onJump(bool jump)
     {
         gameObject.SetActive(false);
     }
