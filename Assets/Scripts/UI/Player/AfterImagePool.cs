@@ -27,7 +27,7 @@ public class AfterImagePool : MonoBehaviour
 
     private void Awake()
     {
-        playerMovement.onDashCD += PlayerMovement_onDashCD;
+        playerMovement.onDash += PlayerMovement_onDash;
 
         for (int i = 0; i < poolSize; i++)
             pool.Enqueue(CreateNewSpriteRenderer());
@@ -35,7 +35,7 @@ public class AfterImagePool : MonoBehaviour
 
     private void OnDestroy()
     {
-        playerMovement.onDashCD -= PlayerMovement_onDashCD;
+        playerMovement.onDash -= PlayerMovement_onDash;
     }
 
     private SpriteRenderer CreateNewSpriteRenderer()
@@ -48,7 +48,7 @@ public class AfterImagePool : MonoBehaviour
         return sr;
     }
 
-    private void PlayerMovement_onDashCD(float dashDuration)
+    private void PlayerMovement_onDash(float dashDuration)
     {
         if (_afterImageRoutine != null)
             StopCoroutine(_afterImageRoutine);

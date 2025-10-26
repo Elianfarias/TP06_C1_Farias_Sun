@@ -9,6 +9,7 @@ namespace Assets.Scripts.Gameplay.Player
         private static readonly int State = Animator.StringToHash("State");
 
         public event Action<float> onDashCD;
+        public event Action<float> onDash;
         public event Action<float, float> onChargerJump;
         public event Action onJump;
 
@@ -56,7 +57,7 @@ namespace Assets.Scripts.Gameplay.Player
             if (Input.GetKey(data.keyCodeRight))
                 MoveX(new Vector2(1, rb.velocityY));
 
-            if (Input.GetKey(data.keyCodeDash) && !isJumping)
+            if (Input.GetKey(data.keyCodeDash))
                 TryDash();
         }
 
@@ -202,20 +203,19 @@ namespace Assets.Scripts.Gameplay.Player
             _isDashing = true;
             _lastDashTime = Time.time;
 
-            onDashCD.Invoke(data.dashDuration);
+            onDashCD.Invoke(data.dashCD);
+            onDash.Invoke(data.dashDuration);
 
             // Ignore enemies
             GameStateManager.Instance.inmortalMode = true;
             gameObject.layer = LayerMask.NameToLayer("PlayerDash");
 
-            rb.AddForceX(velocity.x * data.dashSpeed, ForceMode2D.Impulse);
+            rb.AddForceX(velocity.normalized.x * data.dashSpeed, ForceMode2D.Impulse);
 
-            yield return new WaitForSeconds(data.inmortalDuration);
+            yield return new WaitForSeconds(data.dashDuration);
 
             GameStateManager.Instance.inmortalMode = false;
             gameObject.layer = LayerMask.NameToLayer("Player");
-
-            yield return new WaitForSeconds(data.dashDuration - data.inmortalDuration);
 
             _isDashing = false;
         }

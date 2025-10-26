@@ -6,6 +6,7 @@ public class HealthSystem : MonoBehaviour
 {
     private static readonly int State = Animator.StringToHash("State");
     public event Action<int, int, bool> onLifeUpdated;
+    public event Action onHealing;
     public event Action onDie;
 
     [SerializeField] private int maxLife = 100;
@@ -54,7 +55,7 @@ public class HealthSystem : MonoBehaviour
         if (life > maxLife)
             life = maxLife;
 
-        onLifeUpdated?.Invoke(life, maxLife, false);
+        onHealing?.Invoke();
     }
 
     private IEnumerator TakeDamage()

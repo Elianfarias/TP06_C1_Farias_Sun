@@ -22,6 +22,7 @@ public class PlayerDataSO : ScriptableObject
     public float dashSpeed = 7f;
     public float inmortalDuration = 0.8f;
     public float dashDuration = 2f;
+    public float dashCD = 2f;
     // Jump
     public float timeToFullCharge = 1f;
     public float tapThreshold = 0.3f;

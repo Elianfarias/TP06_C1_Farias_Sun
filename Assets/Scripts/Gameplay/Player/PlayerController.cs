@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
         healthSystem = GetComponent<HealthSystem>();
         healthSystem.onDie += HealthSystem_onDie;
         healthSystem.onLifeUpdated += HealthSystem_onLifeUpdated;
+        healthSystem.onHealing += HealthSystem_onHealing;
     }
 
     private void OnDestroy()
@@ -27,6 +28,10 @@ public class PlayerController : MonoBehaviour
             CombatEvents.RaiseCameraShake(2f, 0.12f, transform.position);
             AudioController.Instance.PlaySoundEffect(clipHurt, priority: 2);
         }
+    }
+
+    private void HealthSystem_onHealing()
+    {
     }
 
     private void HealthSystem_onDie()

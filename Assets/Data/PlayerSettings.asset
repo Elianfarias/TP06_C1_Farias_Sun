@@ -17,6 +17,7 @@ MonoBehaviour:
   keyCodeLeft: 97
   keyCodeRight: 100
   keyCodeDash: 304
+  slowMotionKey: 101
   bulletPrefab: {fileID: 3954131475818202122, guid: 2de0b17eb19de4e47b90b7875d482c8a, type: 3}
   speed: 2
   jumpForce: 4
@@ -24,12 +25,17 @@ MonoBehaviour:
   volumeMusic: -28.812775
   volumeSFX: -41.38864
   chargerSize: 4
+  extraReloadDelay: 2
   dashSpeed: 9
   inmortalDuration: 0.2
-  dashDuration: 0.2
-  extraReloadDelay: 2
+  dashDuration: 0.4
+  dashCD: 2
   timeToFullCharge: 1
   tapThreshold: 0.3
   minChargeToRelease: 0.1
   maxImpulseForce: 8
   canChargeWhileDashing: 1
+  slowMotionCooldown: 2
+  slowMotionScale: 0.3
+  slowMotionDuration: 2
+  takeDamageSlowMotion: 2
