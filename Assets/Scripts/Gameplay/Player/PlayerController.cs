@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     {
         healthSystem.onDie -= HealthSystem_onDie;
         healthSystem.onLifeUpdated -= HealthSystem_onLifeUpdated;
+        healthSystem.onHealing += HealthSystem_onHealing;
     }
 
     private void HealthSystem_onLifeUpdated(int life, int maxLife, bool takeDmgMyselft)
@@ -30,7 +31,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void HealthSystem_onHealing()
+    private void HealthSystem_onHealing(int life, int maxLife, bool takeDmgMyselft)
     {
     }
 

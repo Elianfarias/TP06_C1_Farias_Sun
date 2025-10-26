@@ -57,6 +57,9 @@ namespace Assets.Scripts.Gameplay.Player
             if (Input.GetKey(data.keyCodeRight))
                 MoveX(new Vector2(1, rb.velocityY));
 
+            if (Input.GetKey(data.keyCodeDown))
+                MoveY(new Vector2(rb.velocityX, -1));
+
             if (Input.GetKey(data.keyCodeDash))
                 TryDash();
         }
@@ -174,14 +177,16 @@ namespace Assets.Scripts.Gameplay.Player
                 animator.SetInteger(State, (int)PlayerAnimatorEnum.Run);
 
             AudioController.Instance.PlaySoundEffect(clipWalk);
-            Vector2 movementSpeed = new(data.speed * axis.x, rb.velocityY);
+            float newSpeed = data.speed > rb.velocityX ? data.speed : rb.velocityX;
+            Vector2 movementSpeed = new(newSpeed * axis.x, rb.velocityY);
 
             rb.velocity = movementSpeed;
         }
 
         private void MoveY(Vector2 axis)
         {
-            Vector2 movementSpeed = new(rb.velocityX, data.speed * axis.y);
+            float newSpeed = data.speed > rb.velocityY ? data.speed : rb.velocityY;
+            Vector2 movementSpeed = new(rb.velocityX, newSpeed * axis.y);
 
             rb.velocity = movementSpeed;
         }

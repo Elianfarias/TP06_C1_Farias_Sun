@@ -9,12 +9,14 @@ public class UILife : MonoBehaviour
     private void Awake()
     {
         target.onLifeUpdated += HealthSystem_onLifeUpdated;
+        target.onHealing += HealthSystem_onLifeUpdated;
         target.onDie += HealthSystem_onDie;
     }
 
     private void OnDestroy()
     {
         target.onLifeUpdated -= HealthSystem_onLifeUpdated;
+        target.onHealing -= HealthSystem_onLifeUpdated;
         target.onDie -= HealthSystem_onDie;
     }
 
@@ -23,6 +25,7 @@ public class UILife : MonoBehaviour
         float lerp = current / (float)max;
         barLife.fillAmount = lerp;
     }
+
 
     private void HealthSystem_onDie()
     {
