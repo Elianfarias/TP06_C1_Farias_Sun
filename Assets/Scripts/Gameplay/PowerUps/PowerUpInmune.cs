@@ -11,7 +11,7 @@ public class PowerUpInmune : MonoBehaviour, IPowerUp
 
     public bool isActive = false;
     private Rigidbody2D rb;
-    private PlayerMovement playerMovement;
+    private readonly PlayerMovement playerMovement;
 
     private void Awake()
     {

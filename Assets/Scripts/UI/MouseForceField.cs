@@ -30,8 +30,8 @@ public class MouseForceField : MonoBehaviour
     {
         Vector2 mouse = Input.mousePosition;
 
-        var screen = new Vector3(mouse.x, mouse.y, 0);
-        var world = targetCamera.ScreenToWorldPoint(screen);
+        Vector3 screen = new(mouse.x, mouse.y, 0);
+        Vector3 world = targetCamera.ScreenToWorldPoint(screen);
 
         if (clampToBounds)
         {

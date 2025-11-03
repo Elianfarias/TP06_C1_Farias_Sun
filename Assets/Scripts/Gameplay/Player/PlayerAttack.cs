@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    public event Action<int> onChargerUpdate;
-    public event Action onReload;
+    public event Action<int> OnChargerUpdate;
+    public event Action OnReload;
 
     [Header("PlayerData")]
     public PlayerDataSO data;
@@ -52,7 +52,7 @@ public class PlayerAttack : MonoBehaviour
 
         if (shotsSinceExtraDelay >= data.chargerSize)
         {
-            onReload.Invoke();
+            OnReload.Invoke();
             cd += data.extraReloadDelay;
             shotsSinceExtraDelay = 0;
         }
@@ -77,7 +77,7 @@ public class PlayerAttack : MonoBehaviour
             if (!bulletsPool[idx].gameObject.activeSelf)
             {
                 nextIndex = (idx + 1) % count;
-                onChargerUpdate?.Invoke(bulletsPool.Length - nextIndex + 1);
+                OnChargerUpdate?.Invoke(bulletsPool.Length - nextIndex + 1);
                 return bulletsPool[idx];
             }
         }

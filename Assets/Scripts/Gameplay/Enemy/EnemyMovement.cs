@@ -5,8 +5,8 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     private static readonly int State = Animator.StringToHash("State");
-    public event Action onMove;
-    public event Action onAttack;
+    public event Action OnMove;
+    public event Action OnAttack;
     [Header("Enemy Settings")]
     [SerializeField] EnemySettingsSO data;
     [Header("Patrol Positions")]
@@ -57,7 +57,7 @@ public class EnemyMovement : MonoBehaviour
     private IEnumerator Attack(HealthSystem healthSystem)
     {
         StopMovement();
-        onAttack.Invoke();
+        OnAttack.Invoke();
         healthSystem.DoDamage(data.Damage);
         animator.SetInteger(State, (int)PlayerAnimatorEnum.Attack);
 
@@ -72,7 +72,7 @@ public class EnemyMovement : MonoBehaviour
         if (stopMovement)
             return;
 
-        onMove.Invoke();
+        OnMove.Invoke();
 
         Vector2 direction = (patrol.transform.position - transform.position).normalized;
         rb.velocity = (data.SpeedMovement) * Time.fixedDeltaTime * direction;

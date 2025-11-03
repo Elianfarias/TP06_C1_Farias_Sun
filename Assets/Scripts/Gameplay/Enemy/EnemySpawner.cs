@@ -45,7 +45,6 @@ public class EnemySpawner : MonoBehaviour
             if (enemySelected.activeSelf)
                 continue;
 
-            EnemyMovement enemyMovement = enemySelected.GetComponent<EnemyMovement>();
             enemySelected.transform.position = transform.position;
             enemySelected.SetActive(true);
             countSpawnersActivated++;

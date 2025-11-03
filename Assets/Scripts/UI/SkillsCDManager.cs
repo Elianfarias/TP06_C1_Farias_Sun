@@ -13,12 +13,12 @@ public class SkillsCDManager : MonoBehaviour
 
     private void Awake()
     {
-        PlayerMovement.onDashCD += PlayerMovement_onDashCD;
+        PlayerMovement.OnDashCD += PlayerMovement_onDashCD;
     }
 
     private void OnDestroy()
     {
-        PlayerMovement.onDashCD -= PlayerMovement_onDashCD;
+        PlayerMovement.OnDashCD -= PlayerMovement_onDashCD;
     }
 
     private void PlayerMovement_onDashCD(float duration)

@@ -15,18 +15,18 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         healthSystem = GetComponent<HealthSystem>();
-        playerMovement.onJump += PlayerMovement_onJump;
-        healthSystem.onDie += HealthSystem_onDie;
-        healthSystem.onLifeUpdated += HealthSystem_onLifeUpdated;
-        healthSystem.onHealing += HealthSystem_onHealing;
+        playerMovement.OnJump += PlayerMovement_onJump;
+        healthSystem.OnDie += HealthSystem_onDie;
+        healthSystem.OnLifeUpdated += HealthSystem_onLifeUpdated;
+        healthSystem.OnHealing += HealthSystem_onHealing;
     }
 
     private void OnDestroy()
     {
-        playerMovement.onJump -= PlayerMovement_onJump;
-        healthSystem.onDie -= HealthSystem_onDie;
-        healthSystem.onLifeUpdated -= HealthSystem_onLifeUpdated;
-        healthSystem.onHealing -= HealthSystem_onHealing;
+        playerMovement.OnJump -= PlayerMovement_onJump;
+        healthSystem.OnDie -= HealthSystem_onDie;
+        healthSystem.OnLifeUpdated -= HealthSystem_onLifeUpdated;
+        healthSystem.OnHealing -= HealthSystem_onHealing;
     }
 
     private void PlayerMovement_onJump(bool jump)

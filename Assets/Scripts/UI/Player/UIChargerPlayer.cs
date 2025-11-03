@@ -9,14 +9,14 @@ public class UIChargerPlayer : MonoBehaviour
 
     private void Awake()
     {
-        playerAttack.onChargerUpdate += OnChargerUpdate;
-        playerAttack.onReload += OnReload;
+        playerAttack.OnChargerUpdate += OnChargerUpdate;
+        playerAttack.OnReload += OnReload;
     }
 
     private void OnDestroy()
     {
-        playerAttack.onChargerUpdate -= OnChargerUpdate;
-        playerAttack.onReload -= OnReload;
+        playerAttack.OnChargerUpdate -= OnChargerUpdate;
+        playerAttack.OnReload -= OnReload;
     }
 
     private void OnChargerUpdate(int current)

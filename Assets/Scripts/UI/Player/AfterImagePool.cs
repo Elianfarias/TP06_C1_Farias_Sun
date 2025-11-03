@@ -21,13 +21,13 @@ public class AfterImagePool : MonoBehaviour
     [SerializeField] private Color afterImageColor = new(1f, 1f, 1f, 0.9f);
     [SerializeField] private float afterImageScaleMultiplier = 1f;
 
-    private Queue<SpriteRenderer> pool = new();
+    private readonly Queue<SpriteRenderer> pool = new();
     private Coroutine _afterImageRoutine;
     private Vector3 _lastAfterImagePos;
 
     private void Awake()
     {
-        playerMovement.onDash += PlayerMovement_onDash;
+        playerMovement.OnDash += PlayerMovement_onDash;
 
         for (int i = 0; i < poolSize; i++)
             pool.Enqueue(CreateNewSpriteRenderer());
@@ -35,7 +35,7 @@ public class AfterImagePool : MonoBehaviour
 
     private void OnDestroy()
     {
-        playerMovement.onDash -= PlayerMovement_onDash;
+        playerMovement.OnDash -= PlayerMovement_onDash;
     }
 
     private SpriteRenderer CreateNewSpriteRenderer()
@@ -83,8 +83,7 @@ public class AfterImagePool : MonoBehaviour
         sr.flipX = playerSpriteRenderer.flipX;
         sr.sortingLayerID = playerSpriteRenderer.sortingLayerID;
         sr.sortingOrder = playerSpriteRenderer.sortingOrder - 1;
-        sr.transform.position = playerSpriteRenderer.transform.position;
-        sr.transform.rotation = playerSpriteRenderer.transform.rotation;
+        sr.transform.SetPositionAndRotation(playerSpriteRenderer.transform.position, playerSpriteRenderer.transform.rotation);
         sr.transform.localScale = playerSpriteRenderer.transform.localScale * afterImageScaleMultiplier;
         sr.color = afterImageColor;
 

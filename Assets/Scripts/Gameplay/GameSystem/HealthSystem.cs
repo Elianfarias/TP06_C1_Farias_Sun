@@ -5,22 +5,22 @@ using UnityEngine;
 public class HealthSystem : MonoBehaviour
 {
     private static readonly int State = Animator.StringToHash("State");
-    public event Action<int, int, bool> onLifeUpdated;
-    public event Action<int, int, bool> onHealing;
-    public event Action onDie;
+    public event Action<int, int, bool> OnLifeUpdated;
+    public event Action<int, int, bool> OnHealing;
+    public event Action OnDie;
 
     [SerializeField] private int maxLife = 100;
     [SerializeField] private Animator animator;
     [SerializeField] private Rigidbody2D rb;
 
     private int life = 100;
-    private PlayerAnimatorEnum playerAnimatorEnum;
+    private readonly PlayerAnimatorEnum playerAnimatorEnum;
     private bool isTakingDamage;
 
     private void Start()
     {
         life = maxLife;
-        onLifeUpdated?.Invoke(life, maxLife, false);
+        OnLifeUpdated?.Invoke(life, maxLife, false);
     }
 
     public void DoDamage(int damage, bool takeDmgMyself = false)
@@ -40,7 +40,7 @@ public class HealthSystem : MonoBehaviour
             if (!takeDmgMyself)
                 StartCoroutine(nameof(TakeDamage));
 
-            onLifeUpdated?.Invoke(life, maxLife, takeDmgMyself);
+            OnLifeUpdated?.Invoke(life, maxLife, takeDmgMyself);
         }
 
     }
@@ -55,7 +55,7 @@ public class HealthSystem : MonoBehaviour
         if (life > maxLife)
             life = maxLife;
 
-        onHealing?.Invoke(life, maxLife, false);
+        OnHealing?.Invoke(life, maxLife, false);
     }
 
     private IEnumerator TakeDamage()
@@ -77,6 +77,6 @@ public class HealthSystem : MonoBehaviour
         
         animator.SetInteger(State, (int)PlayerAnimatorEnum.Death);
         life = 0;
-        onDie?.Invoke();
+        OnDie?.Invoke();
     }
 }

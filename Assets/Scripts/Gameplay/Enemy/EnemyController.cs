@@ -20,20 +20,20 @@ public class EnemyController : MonoBehaviour
     {
         healthSystem = GetComponent<HealthSystem>();
         enemyMovement = GetComponent<EnemyMovement>();
-        enemyMovement.onMove += EnemyMovement_onMove;
-        enemyMovement.onAttack += EnemyMovement_onAttack;
-        healthSystem.onDie += HealthSystem_onDie;
-        healthSystem.onLifeUpdated += HealthSystem_onLifeUpdated;
+        enemyMovement.OnMove += EnemyMovement_onMove;
+        enemyMovement.OnAttack += EnemyMovement_onAttack;
+        healthSystem.OnDie += HealthSystem_onDie;
+        healthSystem.OnLifeUpdated += HealthSystem_onLifeUpdated;
 
         nextTimeToReproduce = Time.time;
     }
 
     private void OnDestroy()
     {
-        enemyMovement.onMove -= EnemyMovement_onMove;
-        enemyMovement.onAttack -= EnemyMovement_onAttack;
-        healthSystem.onDie -= HealthSystem_onDie;
-        healthSystem.onLifeUpdated -= HealthSystem_onLifeUpdated;
+        enemyMovement.OnMove -= EnemyMovement_onMove;
+        enemyMovement.OnAttack -= EnemyMovement_onAttack;
+        healthSystem.OnDie -= HealthSystem_onDie;
+        healthSystem.OnLifeUpdated -= HealthSystem_onLifeUpdated;
     }
 
     private void EnemyMovement_onMove()

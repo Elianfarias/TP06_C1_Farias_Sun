@@ -8,10 +8,10 @@ namespace Assets.Scripts.Gameplay.Player
     {
         private static readonly int State = Animator.StringToHash("State");
 
-        public event Action<float> onDashCD;
-        public event Action<float> onDash;
-        public event Action<float, float> onChargerJump;
-        public event Action<bool> onJump;
+        public event Action<float> OnDashCD;
+        public event Action<float> OnDash;
+        public event Action<float, float> OnChargerJump;
+        public event Action<bool> OnJump;
 
         [Header("Player Settings")]
         [SerializeField] private PlayerDataSO data;
@@ -71,7 +71,7 @@ namespace Assets.Scripts.Gameplay.Player
         {
             if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
             {
-                onJump?.Invoke(false);
+                OnJump?.Invoke(false);
                 isJumping = false;
             }
         }
@@ -93,13 +93,13 @@ namespace Assets.Scripts.Gameplay.Player
             {
                 if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Ground"))
                 {
-                    onJump?.Invoke(false);
+                    OnJump?.Invoke(false);
                     isJumping = false;
                     return;
                 }
             }
 
-            onJump?.Invoke(true);
+            OnJump?.Invoke(true);
             isJumping = true;
         }
 
@@ -137,7 +137,7 @@ namespace Assets.Scripts.Gameplay.Player
         {
             isCharging = true;
             currentCharge = 0f;
-            onChargerJump?.Invoke(currentCharge, data.timeToFullCharge);
+            OnChargerJump?.Invoke(currentCharge, data.timeToFullCharge);
         }
 
         private void ContinueCharging()
@@ -146,7 +146,7 @@ namespace Assets.Scripts.Gameplay.Player
             if (data.timeToFullCharge <= 0f) currentCharge = 1f;
             else currentCharge += (1f / data.timeToFullCharge) * Time.deltaTime;
             currentCharge = Mathf.Clamp01(currentCharge);
-            onChargerJump?.Invoke(currentCharge, data.timeToFullCharge);
+            OnChargerJump?.Invoke(currentCharge, data.timeToFullCharge);
         }
 
         private void ReleaseCharge()
@@ -160,7 +160,7 @@ namespace Assets.Scripts.Gameplay.Player
             Vector2 dir = GetChargeDirection();
             isJumping = true;
             rb.AddForce(dir * impulse, ForceMode2D.Impulse);
-            onJump?.Invoke(true);
+            OnJump?.Invoke(true);
         }
 
         private Vector2 GetChargeDirection()
@@ -195,7 +195,7 @@ namespace Assets.Scripts.Gameplay.Player
             isJumping = true;
             animator.SetInteger(State, (int)PlayerAnimatorEnum.Jump);
             rb.AddForce(data.jumpForce * Vector2.up, ForceMode2D.Impulse);
-            onJump?.Invoke(true);
+            OnJump?.Invoke(true);
         }
 
         private void StopMovement()
@@ -241,8 +241,8 @@ namespace Assets.Scripts.Gameplay.Player
             _isDashing = true;
             _lastDashTime = Time.time;
 
-            onDashCD.Invoke(data.dashCD);
-            onDash.Invoke(data.dashDuration);
+            OnDashCD.Invoke(data.dashCD);
+            OnDash.Invoke(data.dashDuration);
 
             // Ignore enemies
             GameStateManager.Instance.inmortalMode = true;

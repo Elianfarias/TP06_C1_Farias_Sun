@@ -6,7 +6,7 @@ namespace Assets.Scripts.UI
     public class ParallaxBackground : MonoBehaviour
     {
         public ParallaxCamera parallaxCamera;
-        List<ParallaxLayer> parallaxLayers = new List<ParallaxLayer>();
+        private readonly List<ParallaxLayer> parallaxLayers = new();
 
         private float startCameraX;
 
@@ -36,9 +36,7 @@ namespace Assets.Scripts.UI
 
             for (int i = 0; i < transform.childCount; i++)
             {
-                ParallaxLayer layer = transform.GetChild(i).GetComponent<ParallaxLayer>();
-
-                if (layer != null)
+                if (transform.GetChild(i).TryGetComponent<ParallaxLayer>(out var layer))
                 {
                     layer.name = "Layer-" + i;
                     layer.SetStartLocalPos();

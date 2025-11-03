@@ -8,16 +8,16 @@ public class UILife : MonoBehaviour
 
     private void Awake()
     {
-        target.onLifeUpdated += HealthSystem_onLifeUpdated;
-        target.onHealing += HealthSystem_onLifeUpdated;
-        target.onDie += HealthSystem_onDie;
+        target.OnLifeUpdated += HealthSystem_onLifeUpdated;
+        target.OnHealing += HealthSystem_onLifeUpdated;
+        target.OnDie += HealthSystem_onDie;
     }
 
     private void OnDestroy()
     {
-        target.onLifeUpdated -= HealthSystem_onLifeUpdated;
-        target.onHealing -= HealthSystem_onLifeUpdated;
-        target.onDie -= HealthSystem_onDie;
+        target.OnLifeUpdated -= HealthSystem_onLifeUpdated;
+        target.OnHealing -= HealthSystem_onLifeUpdated;
+        target.OnDie -= HealthSystem_onDie;
     }
 
     public void HealthSystem_onLifeUpdated(int current, int max, bool takeDmgMyseft)
