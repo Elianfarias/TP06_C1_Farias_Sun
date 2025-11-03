@@ -11771,19 +11771,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2646346876168799618, guid: 9b4b92e0000085b48af031b82b937825, type: 3}
       propertyPath: m_LocalScale.x
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2646346876168799618, guid: 9b4b92e0000085b48af031b82b937825, type: 3}
       propertyPath: m_LocalScale.y
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2646346876168799618, guid: 9b4b92e0000085b48af031b82b937825, type: 3}
       propertyPath: m_LocalScale.z
-      value: 5
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 2646346876168799618, guid: 9b4b92e0000085b48af031b82b937825, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 2646346876168799618, guid: 9b4b92e0000085b48af031b82b937825, type: 3}
       propertyPath: m_ConstrainProportionsScale
@@ -11792,7 +11792,19 @@ PrefabInstance:
     - target: {fileID: 3781623190730007001, guid: 9b4b92e0000085b48af031b82b937825, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 5d52b20f865aff242bfcb08c3b6f61a5, type: 3}
+      objectReference: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
+    - target: {fileID: 3781623190730007001, guid: 9b4b92e0000085b48af031b82b937825, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3781623190730007001, guid: 9b4b92e0000085b48af031b82b937825, type: 3}
+      propertyPath: m_Color.g
+      value: 0.010702133
+      objectReference: {fileID: 0}
+    - target: {fileID: 3781623190730007001, guid: 9b4b92e0000085b48af031b82b937825, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3864790027311255706, guid: 9b4b92e0000085b48af031b82b937825, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.32
@@ -11926,7 +11938,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.31132078, g: 0.31132078, b: 0.31132078, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -11976,18 +11988,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FlyingEye
       objectReference: {fileID: 0}
-    - target: {fileID: 5284259764960140397, guid: ebd3195d42eac6c4587ad46b610dccaa, type: 3}
-      propertyPath: m_Name
-      value: Minimap
-      objectReference: {fileID: 0}
     - target: {fileID: 6889360948538235063, guid: ebd3195d42eac6c4587ad46b610dccaa, type: 3}
       propertyPath: soul
       value: 
       objectReference: {fileID: 1199762348}
-    - target: {fileID: 7883756015876240999, guid: ebd3195d42eac6c4587ad46b610dccaa, type: 3}
-      propertyPath: m_SortingOrder
-      value: -10
-      objectReference: {fileID: 0}
     - target: {fileID: 8964143499621550308, guid: ebd3195d42eac6c4587ad46b610dccaa, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.88
