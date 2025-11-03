@@ -43,6 +43,8 @@ namespace Assets.Scripts.Gameplay.Player
         {
             if (!isJumping)
                 HandleJumpAndChargeInput();
+
+            // IsOnGround();
         }
 
         private void FixedUpdate()
@@ -72,6 +74,33 @@ namespace Assets.Scripts.Gameplay.Player
                 onJump?.Invoke(false);
                 isJumping = false;
             }
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.yellow;
+            Vector3 center = transform.position + (-transform.up * data.distanceOffset);
+            Gizmos.DrawWireSphere(center, data.radiusCircleRaycast);
+        }
+
+        private void IsOnGround()
+        {
+            Vector3 center = transform.position + (-transform.up * data.distanceOffset);
+
+            RaycastHit2D[] hits = Physics2D.CircleCastAll(center, data.radiusCircleRaycast, Vector2.down, 0.5f);
+
+            foreach (RaycastHit2D hit in hits)
+            {
+                if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Ground"))
+                {
+                    onJump?.Invoke(false);
+                    isJumping = false;
+                    return;
+                }
+            }
+
+            onJump?.Invoke(true);
+            isJumping = true;
         }
 
         private void HandleJumpAndChargeInput()

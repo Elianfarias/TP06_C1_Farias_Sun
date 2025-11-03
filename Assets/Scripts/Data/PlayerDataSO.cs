@@ -29,6 +29,8 @@ public class PlayerDataSO : ScriptableObject
     public float minChargeToRelease = 0.05f;
     public float maxImpulseForce = 8f;
     public bool canChargeWhileDashing = false;
+    public float distanceOffset = 0.5f;
+    public float radiusCircleRaycast = 5f;
     // slow motion
     public float slowMotionCooldown = 2f;
     public float slowMotionScale = 0.3f;

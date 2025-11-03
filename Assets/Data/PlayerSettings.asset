@@ -35,6 +35,8 @@ MonoBehaviour:
   minChargeToRelease: 0.1
   maxImpulseForce: 8
   canChargeWhileDashing: 1
+  distanceOffset: 0.4
+  radiusCircleRaycast: 0.1
   slowMotionCooldown: 2
   slowMotionScale: 0.3
   slowMotionDuration: 2

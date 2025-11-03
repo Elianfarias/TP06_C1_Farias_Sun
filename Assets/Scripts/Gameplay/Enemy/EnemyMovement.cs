@@ -41,6 +41,12 @@ public class EnemyMovement : MonoBehaviour
             StartCoroutine(Attack(healthSystem));
     }
 
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(patrolA.transform.position, patrolB.transform.position);
+    }
+
     public void Die()
     {
         rb.bodyType = RigidbodyType2D.Kinematic;
