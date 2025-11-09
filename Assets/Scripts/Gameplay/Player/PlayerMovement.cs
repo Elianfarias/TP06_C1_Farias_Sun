@@ -31,6 +31,7 @@ namespace Assets.Scripts.Gameplay.Player
         private bool isCharging = false;
         private float chargeStartTime = 0f;
         private float currentCharge = 0f;
+        private PlayerStateEnum currentState = PlayerStateEnum.Idle;
 
         private void Awake()
         {
@@ -50,6 +51,36 @@ namespace Assets.Scripts.Gameplay.Player
         private void FixedUpdate()
         {
             RotateTowardsMouseScreen();
+
+            switch (currentState)
+            {
+                case PlayerStateEnum.Idle:
+                    if (Input.GetKey(data.keyCodeLeft))
+                        MoveX(new Vector2(-1, rb.velocityY));
+
+                    if (Input.GetKey(data.keyCodeRight))
+                        MoveX(new Vector2(1, rb.velocityY));
+
+                    if (Input.GetKey(data.keyCodeDown))
+                        MoveY(new Vector2(rb.velocityX, -1));
+                    break;
+                case PlayerStateEnum.Run:
+                    if (Input.GetKey(data.keyCodeLeft))
+                        MoveX(new Vector2(-1, rb.velocityY));
+
+                    if (Input.GetKey(data.keyCodeRight))
+                        MoveX(new Vector2(1, rb.velocityY));
+
+                    if (Input.GetKey(data.keyCodeDown))
+                        MoveY(new Vector2(rb.velocityX, -1));
+                    break;
+                case PlayerStateEnum.Jump:
+                    break;
+                case PlayerStateEnum.Attack:
+                    break;
+                default:
+                    break;
+            }
 
             if (!Input.GetKey(data.keyCodeLeft) && !Input.GetKey(data.keyCodeRight) && !isJumping && !isCharging)
                 StopMovement();
@@ -240,6 +271,7 @@ namespace Assets.Scripts.Gameplay.Player
         {
             _isDashing = true;
             _lastDashTime = Time.time;
+            int sign = velocity.x > 0 ? 1 : -1;
 
             OnDashCD.Invoke(data.dashCD);
             OnDash.Invoke(data.dashDuration);
@@ -248,7 +280,7 @@ namespace Assets.Scripts.Gameplay.Player
             GameStateManager.Instance.inmortalMode = true;
             gameObject.layer = LayerMask.NameToLayer("PlayerDash");
 
-            rb.AddForceX(velocity.normalized.x * data.dashSpeed, ForceMode2D.Impulse);
+            rb.velocity = new Vector2(sign * data.dashSpeed, velocity.y);
 
             yield return new WaitForSeconds(data.dashDuration);
 

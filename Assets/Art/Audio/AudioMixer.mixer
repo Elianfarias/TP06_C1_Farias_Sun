@@ -102,6 +102,8 @@ AudioMixerController:
     name: VolumeSFXEnemies
   - guid: 21aeb055f6c6b7149aa7d914960be4da
     name: VolumeSFX
+  - guid: 046f13e9db8005448b181cc6a640fe64
+    name: VolumeUI
   m_AudioMixerGroupViews:
   - guids:
     - 8dfa770be49a7974db1fa3e847907499
@@ -171,6 +173,7 @@ AudioMixerSnapshotController:
     7e383bb5ad08fd948adb31a385b9e0be: 4.9
     d25739786faa1bd4bad77110985a68f3: 13.62
     e68a47884782e4b4ba32d25daef05fc9: 20.1
+    046f13e9db8005448b181cc6a640fe64: 0
     03ebe17a8c8e3da4b863b4adc27d13b9: 0
     0b2f81db60b6b324a8fe0f96ff0a9271: 0
     1457736d7ec2cfd428809b632e2d236f: 0.456

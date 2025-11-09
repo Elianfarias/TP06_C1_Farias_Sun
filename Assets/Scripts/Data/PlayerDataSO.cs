@@ -15,6 +15,7 @@ public class PlayerDataSO : ScriptableObject
     public string playerName;
     public float volumeMusic;
     public float volumeSFX;
+    public float volumeUI;
     // Bullets
     public int chargerSize = 4;
     public float extraReloadDelay = 2f;

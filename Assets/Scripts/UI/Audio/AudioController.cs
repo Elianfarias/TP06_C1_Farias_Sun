@@ -3,9 +3,12 @@ using UnityEngine;
 public class AudioController : MonoBehaviour
 {
     public static AudioController Instance { get; private set; }
+    [SerializeField] private AudioClip soundHover;
+    [SerializeField] private AudioClip soundClick;
     [SerializeField] private AudioSource soundEffectAudioSource;
     [SerializeField] private AudioSource BackgroundAudioSource;
-    
+    [SerializeField] private AudioSource buttonsAudioSource;
+
     private int actualPriority = 0;
 
     private void Awake()
@@ -28,8 +31,19 @@ public class AudioController : MonoBehaviour
         BackgroundAudioSource.Stop();
     }
 
+
     public void PlayBackgroundMusic()
     {
         BackgroundAudioSource.Play();
+    }
+    
+    public void PlayButtonClickSound()
+    {
+        buttonsAudioSource.PlayOneShot(soundClick);
+    }
+
+    public void PlayButtonHoverSound()
+    {
+        buttonsAudioSource.PlayOneShot(soundHover);
     }
 }
