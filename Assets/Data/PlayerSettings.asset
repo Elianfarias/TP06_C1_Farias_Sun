@@ -24,6 +24,7 @@ MonoBehaviour:
   playerName: Player
   volumeMusic: -28.812775
   volumeSFX: -41.38864
+  volumeUI: 0
   chargerSize: 4
   extraReloadDelay: 2
   dashSpeed: 3
@@ -40,4 +41,4 @@ MonoBehaviour:
   slowMotionCooldown: 2
   slowMotionScale: 0.3
   slowMotionDuration: 2
-  takeDamageSlowMotion: 2
+  takeDamageSlowMotion: 5
