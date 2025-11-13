@@ -14,7 +14,7 @@ namespace Assets.Scripts.Gameplay.Player
         public event Action<bool> OnJump;
 
         [Header("Player Settings")]
-        [SerializeField] private PlayerDataSO data;
+        public PlayerDataSO data;
         [SerializeField] private ParticleSystem waterSplash;
         [Header("Dash Settings")]
         [SerializeField] private float dashCooldown = 1f;
@@ -27,11 +27,6 @@ namespace Assets.Scripts.Gameplay.Player
         private Rigidbody2D rb;
         private bool _isDashing = false;
         private float _lastDashTime = -Mathf.Infinity;
-        private bool isJumping = false;
-        private bool isCharging = false;
-        private float chargeStartTime = 0f;
-        private float currentCharge = 0f;
-        private PlayerStateEnum currentState = PlayerStateEnum.Idle;
 
         private void Awake()
         {
@@ -40,71 +35,12 @@ namespace Assets.Scripts.Gameplay.Player
             rb = GetComponent<Rigidbody2D>();
         }
 
-        private void Update()
-        {
-            if (!isJumping)
-                HandleJumpAndChargeInput();
-
-            // IsOnGround();
-        }
-
         private void FixedUpdate()
         {
             RotateTowardsMouseScreen();
 
-            switch (currentState)
-            {
-                case PlayerStateEnum.Idle:
-                    if (Input.GetKey(data.keyCodeLeft))
-                        MoveX(new Vector2(-1, rb.velocityY));
-
-                    if (Input.GetKey(data.keyCodeRight))
-                        MoveX(new Vector2(1, rb.velocityY));
-
-                    if (Input.GetKey(data.keyCodeDown))
-                        MoveY(new Vector2(rb.velocityX, -1));
-                    break;
-                case PlayerStateEnum.Run:
-                    if (Input.GetKey(data.keyCodeLeft))
-                        MoveX(new Vector2(-1, rb.velocityY));
-
-                    if (Input.GetKey(data.keyCodeRight))
-                        MoveX(new Vector2(1, rb.velocityY));
-
-                    if (Input.GetKey(data.keyCodeDown))
-                        MoveY(new Vector2(rb.velocityX, -1));
-                    break;
-                case PlayerStateEnum.Jump:
-                    break;
-                case PlayerStateEnum.Attack:
-                    break;
-                default:
-                    break;
-            }
-
-            if (!Input.GetKey(data.keyCodeLeft) && !Input.GetKey(data.keyCodeRight) && !isJumping && !isCharging)
-                StopMovement();
-
-            if (Input.GetKey(data.keyCodeLeft))
-                MoveX(new Vector2(-1, rb.velocityY));
-
-            if (Input.GetKey(data.keyCodeRight))
-                MoveX(new Vector2(1, rb.velocityY));
-
-            if (Input.GetKey(data.keyCodeDown))
-                MoveY(new Vector2(rb.velocityX, -1));
-
             if (Input.GetKey(data.keyCodeDash))
                 TryDash();
-        }
-
-        private void OnCollisionEnter2D(Collision2D collision)
-        {
-            if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
-            {
-                OnJump?.Invoke(false);
-                isJumping = false;
-            }
         }
 
         private void OnDrawGizmos()
@@ -114,73 +50,38 @@ namespace Assets.Scripts.Gameplay.Player
             Gizmos.DrawWireSphere(center, data.radiusCircleRaycast);
         }
 
-        private void IsOnGround()
+        public bool IsOnGround()
         {
             Vector3 center = transform.position + (-transform.up * data.distanceOffset);
 
-            RaycastHit2D[] hits = Physics2D.CircleCastAll(center, data.radiusCircleRaycast, Vector2.down, 0.5f);
+            RaycastHit2D[] hits = Physics2D.CircleCastAll(center, data.radiusCircleRaycast, Vector2.down, 0.1f);
 
             foreach (RaycastHit2D hit in hits)
             {
                 if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Ground"))
                 {
-                    OnJump?.Invoke(false);
-                    isJumping = false;
-                    return;
+                    return true;
                 }
             }
 
-            OnJump?.Invoke(true);
-            isJumping = true;
+            return false;
         }
 
-        private void HandleJumpAndChargeInput()
+        public void OnGroundInvoke()
         {
-            if (Input.GetKeyDown(data.keyCodeJump) || Input.GetKeyDown(KeyCode.Space))
-            {
-                chargeStartTime = Time.time;
-                isCharging = false;
-            }
-
-            if (Input.GetKey(data.keyCodeJump) || Input.GetKey(KeyCode.Space))
-            {
-                if (!isCharging && Time.time >= chargeStartTime + data.tapThreshold)
-                    StartCharging();
-
-                if (isCharging)
-                    ContinueCharging();
-            }
-
-            if (Input.GetKeyUp(data.keyCodeJump) || Input.GetKeyUp(KeyCode.Space))
-            {
-                float held = Time.time - chargeStartTime;
-                if (!isCharging && held < data.tapThreshold)
-                    Jump();
-                else if (isCharging)
-                    ReleaseCharge();
-
-                isCharging = false;
-                currentCharge = 0f;
-            }
+            OnJump?.Invoke(false);
         }
 
-        private void StartCharging()
-        {
-            isCharging = true;
-            currentCharge = 0f;
-            OnChargerJump?.Invoke(currentCharge, data.timeToFullCharge);
-        }
 
-        private void ContinueCharging()
+        public void Charging(ref float currentCharge)
         {
-            if (!isCharging) return;
             if (data.timeToFullCharge <= 0f) currentCharge = 1f;
             else currentCharge += (1f / data.timeToFullCharge) * Time.deltaTime;
             currentCharge = Mathf.Clamp01(currentCharge);
             OnChargerJump?.Invoke(currentCharge, data.timeToFullCharge);
         }
 
-        private void ReleaseCharge()
+        public void ReleaseCharge(ref float currentCharge)
         {
             if (currentCharge < data.minChargeToRelease)
                 return;
@@ -189,7 +90,6 @@ namespace Assets.Scripts.Gameplay.Player
             impulse = impulse < data.jumpForce ? data.jumpForce : impulse;
 
             Vector2 dir = GetChargeDirection();
-            isJumping = true;
             rb.AddForce(dir * impulse, ForceMode2D.Impulse);
             OnJump?.Invoke(true);
         }
@@ -217,45 +117,37 @@ namespace Assets.Scripts.Gameplay.Player
             return (Vector2)diff.normalized;
         }
 
-        private void Jump()
+        public void Jump()
         {
-            if (isJumping)
-                return;
-
             AudioController.Instance.PlaySoundEffect(clipJump, priority: 1);
-            isJumping = true;
             animator.SetInteger(State, (int)PlayerAnimatorEnum.Jump);
             rb.AddForce(data.jumpForce * Vector2.up, ForceMode2D.Impulse);
             OnJump?.Invoke(true);
         }
 
-        private void StopMovement()
+        public void StopMovement()
         {
             animator.SetInteger(State, (int)PlayerAnimatorEnum.Idle);
             rb.velocity = new Vector2(0, rb.velocityY);
         }
 
-        private void MoveX(Vector2 axis)
+        public void MoveX(float axisX)
         {
-            if (!isJumping)
-                animator.SetInteger(State, (int)PlayerAnimatorEnum.Run);
-
-            AudioController.Instance.PlaySoundEffect(clipWalk);
             float newSpeed = data.speed > rb.velocityX ? data.speed : rb.velocityX;
-            Vector2 movementSpeed = new(newSpeed * axis.x, rb.velocityY);
+            Vector2 movementSpeed = new(newSpeed * axisX, rb.velocityY);
 
             rb.velocity = movementSpeed;
         }
 
-        private void MoveY(Vector2 axis)
+        public void MoveY(int axisY)
         {
             float newSpeed = data.speed > rb.velocityY ? data.speed : rb.velocityY;
-            Vector2 movementSpeed = new(rb.velocityX, newSpeed * axis.y);
+            Vector2 movementSpeed = new(rb.velocityX, newSpeed * axisY);
 
             rb.velocity = movementSpeed;
         }
 
-        private void TryDash()
+        public void TryDash()
         {
             if (Time.time < _lastDashTime + dashCooldown)
                 return;
@@ -265,6 +157,11 @@ namespace Assets.Scripts.Gameplay.Player
                 return;
 
             StartCoroutine(DashRoutine(rb.velocity));
+        }
+
+        public float GetVelocityX()
+        {
+            return rb.velocity.x;
         }
 
         private IEnumerator DashRoutine(Vector2 velocity)
@@ -297,5 +194,6 @@ namespace Assets.Scripts.Gameplay.Player
             float sign = mousePos.x > playerScreenX ? 1f : -1f;
             transform.localScale = new Vector3(sign, 1f, 1f);
         }
+
     }
 }

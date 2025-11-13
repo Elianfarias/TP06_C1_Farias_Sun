@@ -1,4 +1,5 @@
 using Assets.Scripts.Gameplay.Player;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -12,13 +13,33 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private AudioClip clipHurt;
     [SerializeField] private AudioClip clipDie;
 
+    private Animator animator;
+    private List<State> states = new();
+    [SerializeField] private State currentState;
+    [SerializeField] private State previousState;
+
     private void Awake()
     {
         healthSystem = GetComponent<HealthSystem>();
+        animator = GetComponent<Animator>();
         playerMovement.OnJump += PlayerMovement_onJump;
         healthSystem.OnDie += HealthSystem_onDie;
         healthSystem.OnLifeUpdated += HealthSystem_onLifeUpdated;
         healthSystem.OnHealing += HealthSystem_onHealing;
+    }
+
+    private void Start()
+    {
+        states.Add(new StateIdle(playerMovement, this));
+        states.Add(new StateWalk(playerMovement, this));
+        states.Add(new StateJump(playerMovement, this));
+
+        SwapStateTo(PlayerAnimatorEnum.Idle);
+    }
+
+    private void Update()
+    {
+        currentState.Update();
     }
 
     private void OnDestroy()
@@ -52,5 +73,25 @@ public class PlayerController : MonoBehaviour
     {
         AudioController.Instance.PlaySoundEffect(clipDie, priority: 3);
         GameStateManager.Instance.SetGameState(GameState.GAME_OVER);
+    }
+
+    public void SwapStateTo(PlayerAnimatorEnum nextState)
+    {
+        foreach (State state in states)
+        {
+            if (state.state == nextState)
+            {
+                currentState?.OnExit();
+
+                currentState = state;
+                currentState.OnEnter();
+                break;
+            }
+        }
+    }
+
+    public void ChangeAnimatorState(int state)
+    {
+        animator.SetInteger("State", state);
     }
 }

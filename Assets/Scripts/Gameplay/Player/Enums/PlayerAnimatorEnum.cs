@@ -5,5 +5,6 @@ public enum PlayerAnimatorEnum
     Jump,
     Attack,
     TakeDamage,
-    Death
+    Death,
+    Dash
 }
